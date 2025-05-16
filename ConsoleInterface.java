@@ -4,7 +4,8 @@ import java.util.Scanner;
 
 // a console-based interface.
 public class ConsoleInterface {
-    int option, month, money;
+    int option, money;
+    String month, fMonth, sMonth;
     Scanner console = new Scanner(System.in);
 
     // method, which launches the application.
@@ -28,8 +29,11 @@ public class ConsoleInterface {
     private int askOptions() {
         System.out.print("Choose: ");
 
+        // check, if next input is an integer.
         if (console.hasNextInt()) {
-            return console.nextInt();
+            option = console.nextInt();
+            console.nextLine();
+            return option;
         }
 
         System.out.println("Write an integer value!");
@@ -42,14 +46,16 @@ public class ConsoleInterface {
 
         switch (what) {
             case 1:
-                month = askMonth();
+                month = askDate();
                 money = askMoney();
                 TransactionWriter.writeData(month, money);
                 break;
             case 2:
-                TransactionReader.readData();
+                TransactionReader.showData();
                 break;
             case 3:
+                askMonths();
+                TransactionReader.readRange(fMonth, sMonth);
                 break;
             case 4:
                 System.out.println("Terminating the program.");
@@ -61,23 +67,42 @@ public class ConsoleInterface {
     }
 
     // method, which asks for a month.
-    private int askMonth() {
-        System.out.print("Write a date: ");
-        if (console.hasNextInt()) {
-            return console.nextInt();
-        }
+    private String askDate() {
+        System.out.print("Write a date(eg 02.12.2024): ");
+        return console.nextLine();
 
-        return -1;
     }
 
     // method, which asks for a month.
     private int askMoney() {
         System.out.print("Write a total value spended: ");
         if (console.hasNextInt()) {
-            return console.nextInt();
+            int money = console.nextInt();
+            console.nextLine();
+            return money;
         }
 
         return -1;
+    }
+
+    // method which asks for a period of time spending.
+    private void askMonths() {
+        System.out.println("Enter the spending period");
+        fMonth = askFrirstDate();
+        sMonth = askSecondDate();
+        return;
+    }
+
+    // method, which asks for first information of time spending.
+    private String askFrirstDate() {
+        System.out.print("Enter the first date: ");
+        return console.nextLine();
+    }
+
+    // method, which asks for second information of time spending.
+    private String askSecondDate() {
+        System.out.print("Enter the second date: ");
+        return console.nextLine();
     }
 
 }
