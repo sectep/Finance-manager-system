@@ -55,7 +55,7 @@ public class ConsoleInterface {
                 break;
             case 3:
                 askMonths();
-                TransactionReader.readRange(fMonth, sMonth);
+                TransactionReader.showRange(fMonth, sMonth);
                 break;
             case 4:
                 System.out.println("Terminating the program.");
@@ -87,7 +87,6 @@ public class ConsoleInterface {
 
     // method which asks for a period of time spending.
     private void askMonths() {
-        System.out.println("Enter the spending period");
         fMonth = askFrirstDate();
         sMonth = askSecondDate();
         return;
