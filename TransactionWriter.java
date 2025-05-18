@@ -2,15 +2,15 @@ package personalFinanceManager.src;
 
 import java.io.*;
 
-// a class, which writes a file into a database
+// a class, which writes a file into a database.
 public class TransactionWriter {
-    static String newline = System.getProperty("line.seperator");
-    static String line;
+    static String line; // allocate the line from 'transactions.txt' file.
 
-    // method, which writes encrypted data into data/transactions.dat
+    // method, which writes data into 'transactions.txt' file.
     public static void writeData(String month, int money) {
 
-        // first check, if the month already exists in out database.
+        // first check, if the month already exists in our database and if the type is
+        // valid.
         if (!monthExits(month) && month != null && money != -1) {
 
             // write data into a file.
@@ -20,14 +20,12 @@ public class TransactionWriter {
                 out.write("money: " + money + "\n");
                 return;
             } catch (IOException exc) {
-                System.out.println("Unexpected behavour has happaned in writeData method: " + exc);
+                System.out.println("An unexpected error has occurred: " + exc);
             }
         }
-
-        System.out.println(month + " is already written in our database.");
     }
 
-    // method, which cheks if particular month is already written in our database.
+    // method, which checks if given date is already written in our database.
     private static boolean monthExits(String month) {
         try (BufferedReader in = new BufferedReader(
                 new FileReader("personalFinanceManager/data/transactions.txt"))) {
@@ -39,8 +37,10 @@ public class TransactionWriter {
                 }
             }
         } catch (IOException exc) {
-            System.out.println("Unexpected behavour has happaned in monthExists method: " + exc);
+            System.out.println("An unexpected error has occurred: " + exc);
         }
+
+        System.out.println(month + " is already written in our database.");
         return false;
     }
 }
